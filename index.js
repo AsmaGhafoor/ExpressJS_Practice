@@ -2,36 +2,61 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-const publicPath = path.join(__dirname, 'public');
+// const publicPath = path.join(__dirname, 'public');
 // app.use(express.static(publicPath));
 
-app.set('view engine', 'ejs');
-
-app.get('', (req, res) => {
-    res.sendFile(`${publicPath}/index.html`)
-})
-
-app.get('/profile', (req, res) => {
-    const users = {
-        name: 'asma',
-        email: 'asma@gmail.com',
-        city: 'Karachi',
-        skills: ['JavaScript', 'C#', 'React JS', 'Node JS']
+const reqFilter = (req, res, next) => {
+    // console.log('reqFilter');
+    if (!req.query.age) {
+        res.send("Please provide age");
     }
-    res.render('profile', { users });
+    else if (req.query.age<18)
+    {
+        res.send("You cannot access  this page")
+    }
+    else {
+        next();
+    }
+}
+
+app.use(reqFilter)
+
+app.get('/', (req, res) => {
+    res.send("Welcome to Home Page");
 })
 
-app.get('/login', (req, res) => {
-    res.render('login')
+app.get('/users', (req, res) => {
+    res.send("Welcome to Users Page");
 })
 
-app.get('/about', (req, res) => {
-    res.sendFile(`${publicPath}/about.html`)
-})
 
-app.get('/help', (req, res) => {
-    res.sendFile(`${publicPath}/help.html`)
-})
+// app.set('view engine', 'ejs');
+
+// app.get('', (req, res) => {
+//     res.sendFile(`${publicPath}/index.html`)
+// })
+
+// app.get('/profile', (req, res) => {
+//     const users = {
+//         name: 'asma',
+//         email: 'asma@gmail.com',
+//         city: 'Karachi',
+//         skills: ['JavaScript', 'C#', 'React JS', 'Node JS']
+//     }
+//     res.render('profile', { users });
+// })
+
+// app.get('/login', (req, res) => {
+//     res.render('login')
+// })
+
+// app.get('/about', (req, res) => {
+//     res.sendFile(`${publicPath}/about.html`)
+// })
+
+// app.get('/help', (req, res) => {
+//     res.sendFile(`${publicPath}/help.html`)
+// })
 
 
 // app.get('', (req, res) => {
