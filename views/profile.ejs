@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page EJS</title>
+</head>
+<body>
+    <h3>Profile page</h3>
+
+    <h1>Welcome <%= users.name%></h1>
+    <h3>Email: <%= users.email%></h3>
+    <h3>City: <%= users.city%></h3>
+
+    <ul>
+        <% users.skills.forEach((item)=>{ %>
+            <li><%= item %> </li>
+        <% }) %>
+    </ul>
+    
+</body>
+</html>
